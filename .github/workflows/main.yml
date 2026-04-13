@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr" data-current-lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jhoni eSIM | Portfolio</title>
+  <meta name="description" content="Portfolio multilingue de Jhoni eSIM en français, anglais et espagnol." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121933;
+      --card: rgba(255,255,255,0.06);
+      --line: rgba(255,255,255,0.12);
+      --text: #f5f7ff;
+      --muted: #b8c0e0;
+      --accent: #4f8cff;
+      --accent-2: #13c296;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(79,140,255,.18), transparent 28%),
+        radial-gradient(circle at top left, rgba(19,194,150,.12), transparent 22%),
+        linear-gradient(180deg, #0b1020 0%, #0c1225 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(var(--max), calc(100% - 2rem)); margin: 0 auto; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(11, 16, 32, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 78px; gap: 1rem;
+    }
+    .brand { font-weight: 800; font-size: 1.15rem; letter-spacing: .3px; }
+    .brand span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 1rem; color: var(--muted); font-size: .96rem; }
+    .nav-links a:hover { color: var(--text); }
+
+    .lang-switch {
+      display: inline-flex; align-items: center; gap: .45rem; padding: .35rem;
+      border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    }
+    .lang-btn {
+      border: none; background: transparent; color: var(--muted); padding: .48rem .72rem;
+      border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; transition: .2s ease;
+    }
+    .lang-btn.active, .lang-btn:hover { background: rgba(255,255,255,.11); color: var(--text); }
+
+    [data-lang], [data-lang-block] { display: none; }
+    html[data-current-lang="fr"] [data-lang="fr"] { display: inline; }
+    html[data-current-lang="en"] [data-lang="en"] { display: inline; }
+    html[data-current-lang="es"] [data-lang="es"] { display: inline; }
+    html[data-current-lang="fr"] [data-lang-block="fr"] { display: block; }
+    html[data-current-lang="en"] [data-lang-block="en"] { display: block; }
+    html[data-current-lang="es"] [data-lang-block="es"] { display: block; }
+
+    .hero { padding: 4.8rem 0 3.5rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr .85fr; gap: 2rem; align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .6rem; font-size: .92rem; color: #dbe7ff;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px; padding: .6rem .95rem; margin-bottom: 1rem;
+    }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--accent-2);
+      box-shadow: 0 0 0 6px rgba(19,194,150,.15);
+    }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.9rem); line-height: 1.02; margin: 0 0 1rem; letter-spacing: -0.03em; }
+    .hero p { font-size: 1.08rem; color: var(--muted); max-width: 720px; margin: 0 0 1.6rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-bottom: 1.6rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .6rem; padding: .95rem 1.2rem;
+      border-radius: 14px; font-weight: 700; transition: .22s ease; border: 1px solid transparent;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #7f6fff); color: white; box-shadow: 0 14px 30px rgba(79,140,255,.28); }
+    .btn-primary:hover, .btn-secondary:hover { transform: translateY(-2px); }
+    .btn-secondary { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); color: var(--text); }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.4rem; }
+    .stat, .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .stat { padding: 1rem; }
+    .stat strong { display: block; font-size: 1.6rem; margin-bottom: .2rem; }
+    .stat span { color: var(--muted); font-size: .92rem; }
+    .hero-card { padding: 1.2rem; position: relative; overflow: hidden; }
+    .hero-card::before {
+      content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(79,140,255,.35), transparent 65%);
+    }
+    .portrait {
+      aspect-ratio: 4 / 4.4; border-radius: 20px; overflow: hidden;
+      background: linear-gradient(135deg, rgba(79,140,255,.25), rgba(19,194,150,.12));
+      border: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center;
+    }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .mini-tags, .chips { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1rem; }
+    .tag, .skill-chip {
+      padding: .6rem .8rem; border-radius: 999px; background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12); font-size: .86rem; color: #e6ebff;
+    }
+    section { padding: 1.4rem 0 1rem; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem; }
+    .section-head h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); margin: 0; letter-spacing: -0.02em; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 760px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .content-card, .timeline, .project-card, .contact-card { padding: 1.3rem; }
+    .content-card h3, .timeline h3, .project-card h3 { margin: 0 0 .6rem; font-size: 1.15rem; }
+    .content-card p, .timeline p, .project-card p, .contact-line { color: var(--muted); margin: 0; }
+    .list { display: grid; gap: .55rem; padding-left: 1.1rem; margin: .9rem 0 0; color: #e9eeff; }
+    .timeline .date { color: #9fb7ff; font-size: .9rem; font-weight: 700; margin-bottom: .55rem; display: inline-block; }
+    .timeline .role { font-size: 1.1rem; font-weight: 700; margin-bottom: .2rem; }
+    .timeline .org { color: #d7def8; margin-bottom: .7rem; font-weight: 600; }
+    .project-card { display: flex; flex-direction: column; gap: .9rem; }
+    .label {
+      display: inline-block; width: fit-content; padding: .4rem .7rem; border-radius: 999px;
+      background: rgba(79,140,255,.14); border: 1px solid rgba(79,140,255,.25); color: #cfe0ff;
+      font-size: .82rem; font-weight: 700;
+    }
+    .media-box {
+      min-height: 220px; display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 1rem; border-radius: 18px; background: linear-gradient(135deg, rgba(79,140,255,.18), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.1); color: var(--muted);
+    }
+    .contact-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 1.2rem; }
+    .contact-list, form { display: grid; gap: 1rem; margin-top: 1rem; }
+    .contact-item {
+      padding: 1rem; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    }
+    input, textarea {
+      width: 100%; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); color: var(--text);
+      border-radius: 14px; padding: .95rem 1rem; font: inherit; outline: none;
+    }
+    input::placeholder, textarea::placeholder { color: #9da8c8; }
+    textarea { min-height: 150px; resize: vertical; }
+    .footer { padding: 2.2rem 0 3rem; color: var(--muted); }
+    .footer-box { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: 1.2rem 0 0; border-top: 1px solid rgba(255,255,255,.08); }
+
+    @media (max-width: 980px) {
+      .hero-grid, .grid-2, .grid-3, .contact-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .nav-wrap { padding: .7rem 0; align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding-top: 3.4rem; }
+      .section-head { align-items: start; flex-direction: column; }
+      .nav-links { gap: .8rem; font-size: .9rem; }
+      .btn { width: 100%; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home">Jhoni <span>eSIM</span></a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#about"><span data-lang="fr">À propos</span><span data-lang="en">About</span><span data-lang="es">Acerca de</span></a>
+          <a href="#experience"><span data-lang="fr">Expérience</span><span data-lang="en">Experience</span><span data-lang="es">Experiencia</span></a>
+          <a href="#skills"><span data-lang="fr">Compétences</span><span data-lang="en">Skills</span><span data-lang="es">Competencias</span></a>
+          <a href="#projects"><span data-lang="fr">Projets</span><span data-lang="en">Projects</span><span data-lang="es">Proyectos</span></a>
+          <a href="#media"><span data-lang="fr">Médias</span><span data-lang="en">Media</span><span data-lang="es">Medios</span></a>
+          <a href="#contact"><span data-lang="fr">Contact</span><span data-lang="en">Contact</span><span data-lang="es">Contacto</span></a>
+        </div>
+        <div class="lang-switch" aria-label="Language selector">
+          <button class="lang-btn active" data-set-lang="fr">FR</button>
+          <button class="lang-btn" data-set-lang="en">EN</button>
+          <button class="lang-btn" data-set-lang="es">ES</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span><span data-lang="fr">Innovation • Éducation • Technologie • Impact</span><span data-lang="en">Innovation • Education • Technology • Impact</span><span data-lang="es">Innovación • Educación • Tecnología • Impacto</span></div>
+        <h1>
+          <span data-lang="fr">Créer des solutions utiles pour l’Afrique avec la technologie.</span>
+          <span data-lang="en">Building useful solutions for Africa through technology.</span>
+          <span data-lang="es">Crear soluciones útiles para África con tecnología.</span>
+        </h1>
+        <p data-lang-block="fr">Je suis <strong>Jhoni eSIM</strong>, porteur de projets éducatifs et technologiques. J’interviens sur l’innovation, le numérique, l’IoT, la formation, les projets STEM/STEAM et le développement de solutions concrètes à fort impact social.</p>
+        <p data-lang-block="en">I am <strong>Jhoni eSIM</strong>, a builder of educational and technology-driven projects. I work across innovation, digital tools, IoT, training, STEM/STEAM initiatives, and the development of practical solutions with strong social impact.</p>
+        <p data-lang-block="es">Soy <strong>Jhoni eSIM</strong>, impulsor de proyectos educativos y tecnológicos. Trabajo en innovación, herramientas digitales, IoT, formación, iniciativas STEM/STEAM y en el desarrollo de soluciones concretas con fuerte impacto social.</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects"><span data-lang="fr">Voir mes projets</span><span data-lang="en">See my projects</span><span data-lang="es">Ver mis proyectos</span></a>
+          <a class="btn btn-secondary" href="#contact"><span data-lang="fr">Me contacter</span><span data-lang="en">Contact me</span><span data-lang="es">Contáctame</span></a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat card"><strong>10+</strong><span data-lang="fr">Projets et initiatives à fort potentiel</span><span data-lang="en">Projects and initiatives with strong potential</span><span data-lang="es">Proyectos e iniciativas con gran potencial</span></div>
+          <div class="stat card"><strong>STEM</strong><span data-lang="fr">Éducation, innovation, Arduino, Raspberry Pi, IoT</span><span data-lang="en">Education, innovation, Arduino, Raspberry Pi, IoT</span><span data-lang="es">Educación, innovación, Arduino, Raspberry Pi, IoT</span></div>
+          <div class="stat card"><strong>Afrique</strong><span data-lang="fr">Vision centrée sur l’impact local et durable</span><span data-lang="en">A vision focused on local and sustainable impact</span><span data-lang="es">Visión centrada en un impacto local y sostenible</span></div>
+        </div>
+      </div>
+
+      <div class="hero-card card">
+        <div class="portrait">
+          <img src="jhoniesim.jpg" alt="Jhoni eSIM" />
+        </div>
+        <div class="mini-tags">
+          <span class="tag">Éducation</span>
+          <span class="tag">IoT</span>
+          <span class="tag">Raspberry Pi</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">Innovation sociale</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2><span data-lang="fr">À propos</span><span data-lang="en">About</span><span data-lang="es">Acerca de</span></h2>
+            <p data-lang-block="fr">Une présentation claire de mon profil, de ma mission et de la valeur que j’apporte.</p>
+            <p data-lang-block="en">A clear presentation of my profile, mission, and the value I bring.</p>
+            <p data-lang-block="es">Una presentación clara de mi perfil, mi misión y el valor que aporto.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="content-card card">
+            <h3><span data-lang="fr">Qui je suis</span><span data-lang="en">Who I am</span><span data-lang="es">Quién soy</span></h3>
+            <p data-lang-block="fr">Professionnel engagé dans les domaines de la technologie, de la formation, de l’innovation et du développement de projets utiles. Mon objectif est de transformer des idées concrètes en solutions accessibles, adaptées aux réalités africaines.</p>
+            <p data-lang-block="en">I am a professional committed to technology, training, innovation, and the development of useful projects. My goal is to turn strong ideas into accessible solutions adapted to African realities.</p>
+            <p data-lang-block="es">Soy un profesional comprometido con la tecnología, la formación, la innovación y el desarrollo de proyectos útiles. Mi objetivo es transformar ideas sólidas en soluciones accesibles adaptadas a las realidades africanas.</p>
+          </article>
+          <article class="content-card card">
+            <h3><span data-lang="fr">Ma mission</span><span data-lang="en">My mission</span><span data-lang="es">Mi misión</span></h3>
+            <p data-lang-block="fr">Développer des initiatives qui rendent la science, la technologie et l’innovation plus proches, plus utiles et plus accessibles, notamment pour les jeunes, les écoles et les communautés.</p>
+            <p data-lang-block="en">To develop initiatives that make science, technology, and innovation closer, more useful, and more accessible, especially for young people, schools, and communities.</p>
+            <p data-lang-block="es">Desarrollar iniciativas que hagan la ciencia, la tecnología y la innovación más cercanas, más útiles y más accesibles, especialmente para jóvenes, escuelas y comunidades.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2><span data-lang="fr">Expérience</span><span data-lang="en">Experience</span><span data-lang="es">Experiencia</span></h2>
+            <p data-lang-block="fr">Quelques rôles et axes de travail à mettre en avant.</p>
+            <p data-lang-block="en">A few roles and areas of work to highlight.</p>
+            <p data-lang-block="es">Algunos roles y áreas de trabajo para destacar.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="timeline card">
+            <span class="date">2025 - Present</span>
+            <div class="role"><span data-lang="fr">Porteur de projets technologiques et éducatifs</span><span data-lang="en">Builder of educational and technology projects</span><span data-lang="es">Impulsor de proyectos tecnológicos y educativos</span></div>
+            <div class="org">Jhoni eSIM / Personal initiatives</div>
+            <p data-lang-block="fr">Conception de projets autour de l’éducation, de l’IoT, du diagnostic mobile, des outils STEM et des solutions adaptées aux réalités africaines.</p>
+            <p data-lang-block="en">Design of projects around education, IoT, mobile diagnostics, STEM tools, and solutions adapted to African realities.</p>
+            <p data-lang-block="es">Diseño de proyectos sobre educación, IoT, diagnóstico móvil, herramientas STEM y soluciones adaptadas a las realidades africanas.</p>
+          </article>
+          <article class="timeline card">
+            <span class="date">Technical profile</span>
+            <div class="role"><span data-lang="fr">Ingénierie, support et innovation</span><span data-lang="en">Engineering, support, and innovation</span><span data-lang="es">Ingeniería, soporte e innovación</span></div>
+            <div class="org"><span data-lang="fr">Réseaux, matériel, maintenance et prototypage</span><span data-lang="en">Networks, hardware, maintenance, and prototyping</span><span data-lang="es">Redes, hardware, mantenimiento y prototipado</span></div>
+            <p data-lang-block="fr">Expérience orientée vers les solutions concrètes, l’accompagnement technique, la maintenance, l’installation et le développement de projets pratiques.</p>
+            <p data-lang-block="en">Experience focused on practical solutions, technical support, maintenance, installation, and the development of real-world projects.</p>
+            <p data-lang-block="es">Experiencia orientada a soluciones concretas, acompañamiento técnico, mantenimiento, instalación y desarrollo de proyectos reales.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2><span data-lang="fr">Compétences</span><span data-lang="en">Skills</span><span data-lang="es">Competencias</span></h2>
+            <p data-lang-block="fr">Des compétences techniques, éducatives et de gestion de projet.</p>
+            <p data-lang-block="en">Technical, educational, and project management skills.</p>
+            <p data-lang-block="es">Competencias técnicas, educativas y de gestión de proyectos.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="content-card card">
+            <h3><span data-lang="fr">Technologies</span><span data-lang="en">Technologies</span><span data-lang="es">Tecnologías</span></h3>
+            <div class="chips">
+              <span class="skill-chip">Arduino</span><span class="skill-chip">Raspberry Pi</span><span class="skill-chip">SIMCOM</span><span class="skill-chip">IoT</span><span class="skill-chip">Sensors</span><span class="skill-chip">Prototyping</span>
+            </div>
+          </article>
+          <article class="content-card card">
+            <h3><span data-lang="fr">Projet & numérique</span><span data-lang="en">Project & digital</span><span data-lang="es">Proyecto y digital</span></h3>
+            <div class="chips">
+              <span class="skill-chip"><span data-lang="fr">Gestion de projet</span><span data-lang="en">Project management</span><span data-lang="es">Gestión de proyectos</span></span>
+              <span class="skill-chip"><span data-lang="fr">Documentation</span><span data-lang="en">Documentation</span><span data-lang="es">Documentación</span></span>
+              <span class="skill-chip"><span data-lang="fr">Conception produit</span><span data-lang="en">Product design</span><span data-lang="es">Diseño de producto</span></span>
+              <span class="skill-chip"><span data-lang="fr">Support technique</span><span data-lang="en">Technical support</span><span data-lang="es">Soporte técnico</span></span>
+            </div>
+          </article>
+          <article class="content-card card">
+            <h3><span data-lang="fr">Transmission</span><span data-lang="en">Knowledge sharing</span><span data-lang="es">Transmisión</span></h3>
+            <div class="chips">
+              <span class="skill-chip">STEM/STEAM</span>
+              <span class="skill-chip"><span data-lang="fr">Formation</span><span data-lang="en">Training</span><span data-lang="es">Formación</span></span>
+              <span class="skill-chip"><span data-lang="fr">Ateliers</span><span data-lang="en">Workshops</span><span data-lang="es">Talleres</span></span>
+              <span class="skill-chip"><span data-lang="fr">Impact social</span><span data-lang="en">Social impact</span><span data-lang="es">Impacto social</span></span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2><span data-lang="fr">Projets</span><span data-lang="en">Projects</span><span data-lang="es">Proyectos</span></h2>
+            <p data-lang-block="fr">Quelques initiatives fortes déjà présentes dans ton parcours.</p>
+            <p data-lang-block="en">A few strong initiatives already present in your journey.</p>
+            <p data-lang-block="es">Algunas iniciativas fuertes ya presentes en tu trayectoria.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="project-card card">
+            <span class="label">Santé • IoT</span>
+            <h3><span data-lang="fr">Appareil mobile de diagnostic multi-usage</span><span data-lang="en">Mobile multi-purpose diagnostic device</span><span data-lang="es">Dispositivo móvil de diagnóstico multiuso</span></h3>
+            <p data-lang-block="fr">Concept d’un système portable basé sur Raspberry Pi, Arduino, SIMCOM et différents capteurs pour améliorer l’accès au diagnostic.</p>
+            <p data-lang-block="en">Concept of a portable system based on Raspberry Pi, Arduino, SIMCOM, and multiple sensors to improve access to diagnostics.</p>
+            <p data-lang-block="es">Concepto de un sistema portátil basado en Raspberry Pi, Arduino, SIMCOM y varios sensores para mejorar el acceso al diagnóstico.</p>
+          </article>
+          <article class="project-card card">
+            <span class="label">Éducation • Africa</span>
+            <h3><span data-lang="fr">Programme STEAM pour l’enseignement secondaire</span><span data-lang="en">STEAM program for secondary education</span><span data-lang="es">Programa STEAM para educación secundaria</span></h3>
+            <p data-lang-block="fr">Initiative pour introduire Arduino, Raspberry Pi et la culture maker dans les écoles africaines.</p>
+            <p data-lang-block="en">An initiative to introduce Arduino, Raspberry Pi, and maker culture into African schools.</p>
+            <p data-lang-block="es">Iniciativa para introducir Arduino, Raspberry Pi y la cultura maker en escuelas africanas.</p>
+          </article>
+          <article class="project-card card">
+            <span class="label">Design • Produit</span>
+            <h3><span data-lang="fr">Concept de masque nasal discret</span><span data-lang="en">Discrete nasal mask concept</span><span data-lang="es">Concepto de mascarilla nasal discreta</span></h3>
+            <p data-lang-block="fr">Réflexion autour d’un dispositif discret, ergonomique et adaptable avec une approche startup et industrielle.</p>
+            <p data-lang-block="en">Exploration of a discreet, ergonomic, and adaptable device with a startup and industrial mindset.</p>
+            <p data-lang-block="es">Exploración de un dispositivo discreto, ergonómico y adaptable con enfoque startup e industrial.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="media">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2><span data-lang="fr">Médias & présence</span><span data-lang="en">Media & presence</span><span data-lang="es">Medios y presencia</span></h2>
+            <p data-lang-block="fr">Un espace pour présenter vidéos, interviews, conférences ou publications.</p>
+            <p data-lang-block="en">A place to showcase videos, interviews, talks, or publications.</p>
+            <p data-lang-block="es">Un espacio para mostrar videos, entrevistas, conferencias o publicaciones.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="content-card card">
+            <h3><span data-lang="fr">Présentation</span><span data-lang="en">Presentation</span><span data-lang="es">Presentación</span></h3>
+            <div class="media-box">
+              <span data-lang="fr">Ajoute ici une vidéo YouTube, une interview ou une galerie.</span>
+              <span data-lang="en">Add a YouTube video, interview, or gallery here.</span>
+              <span data-lang="es">Añade aquí un video de YouTube, una entrevista o una galería.</span>
+            </div>
+          </article>
+          <article class="content-card card">
+            <h3><span data-lang="fr">Visibilité</span><span data-lang="en">Visibility</span><span data-lang="es">Visibilidad</span></h3>
+            <p data-lang-block="fr">Cette section peut contenir tes interventions publiques, contenus éducatifs, articles ou partenariats.</p>
+            <p data-lang-block="en">This section can include public talks, educational content, articles, or partnerships.</p>
+            <p data-lang-block="es">Esta sección puede incluir intervenciones públicas, contenido educativo, artículos o colaboraciones.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2><span data-lang="fr">Contact</span><span data-lang="en">Contact</span><span data-lang="es">Contacto</span></h2>
+            <p data-lang-block="fr">Pour collaborations, projets éducatifs, innovation et opportunités professionnelles.</p>
+            <p data-lang-block="en">For collaborations, educational projects, innovation, and professional opportunities.</p>
+            <p data-lang-block="es">Para colaboraciones, proyectos educativos, innovación y oportunidades profesionales.</p>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <article class="contact-card card">
+            <h3><span data-lang="fr">Restons en contact</span><span data-lang="en">Let’s stay connected</span><span data-lang="es">Sigamos en contacto</span></h3>
+            <div class="contact-list">
+              <div class="contact-item"><strong>Email</strong><div class="contact-line">tonemail@example.com</div></div>
+              <div class="contact-item"><strong>LinkedIn</strong><div class="contact-line">linkedin.com/in/tonprofil</div></div>
+              <div class="contact-item"><strong>GitHub</strong><div class="contact-line">github.com/tonprofil</div></div>
+            </div>
+          </article>
+          <article class="contact-card card">
+            <h3><span data-lang="fr">Formulaire</span><span data-lang="en">Form</span><span data-lang="es">Formulario</span></h3>
+            <form onsubmit="event.preventDefault(); alert({fr:'Relie ce formulaire à Formspree, Getform ou Netlify Forms.',en:'Connect this form to Formspree, Getform, or Netlify Forms.',es:'Conecta este formulario con Formspree, Getform o Netlify Forms.'}[document.documentElement.dataset.currentLang || 'fr']);">
+              <input type="text" placeholder="Nom / Name / Nombre" />
+              <input type="email" placeholder="Email" />
+              <input type="text" placeholder="Sujet / Subject / Asunto" />
+              <textarea placeholder="Message"></textarea>
+              <button class="btn btn-primary" type="submit"><span data-lang="fr">Envoyer</span><span data-lang="en">Send</span><span data-lang="es">Enviar</span></button>
+            </form>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-box">
+      <div>
+        <strong>Jhoni eSIM</strong><br>
+        <span data-lang="fr">Innovation, éducation, technologie et impact.</span>
+        <span data-lang="en">Innovation, education, technology, and impact.</span>
+        <span data-lang="es">Innovación, educación, tecnología e impacto.</span>
+      </div>
+      <div>© 2026 — Portfolio personnel / Personal portfolio / Portafolio personal</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll('[data-set-lang]');
+      const saved = localStorage.getItem('jhoni-lang') || 'fr';
+      function setLang(lang) {
+        root.dataset.currentLang = lang;
+        root.setAttribute('lang', lang);
+        buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.setLang === lang));
+        localStorage.setItem('jhoni-lang', lang);
+      }
+      buttons.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.setLang)));
+      setLang(saved);
+    })();
+  </script>
+</body>
+</html>
